@@ -1,0 +1,55 @@
+Python learnings
+//If you want to install from a source distribution, extract the tarball and run the following commands
+python setup.py install
+
+==============================================================================
+CHECK AVAILABLE MODULES AND PYTHON VERSION
+==============================================================================
+-------------------------------------------------------
+python --version
+or 
+python -v 
+
+-- v is lower case in above
+-------------------------------------------------------
+
+pip list
+or 
+conda list
+
+-- but both of the above only provides based on python path in environment variables
+
+help('modules')
+-- to check modules in Anaconda 
+---------------------------------------------------------
+
+
+
+
+
+==============================================================================
+TO REMOVE UNWANTED CHARACTERS IN THE STRING
+==============================================================================
+
+----------------------------------------------------------------------
+import re
+
+def removechars(cellvalue):
+    text = re.sub(r"[\r\n\t\x07\x0b]", "", cellvalue)
+    return text
+Then I use :
+
+value = table.Cell(Row = 1, Column = 1).Range.Text
+value = removechars(value)
+
+---------------------------------------------------------------------
+
+==============================================================================
+VIRTUAL ENVIRONMENT
+==============================================================================
+System Packages are packages that are part of standard Python library.
+Available to all python scripts by default
+
+Site Packages - These are the third party modules that we install and use.
+
+ 
