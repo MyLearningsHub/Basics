@@ -15,3 +15,6 @@ https://medium.com/quick-code/deploying-production-build-of-react-app-to-heroku-
 
 React patterns for better code
 https://reactpatterns.com/
+
+React Tips and Tricks
+https://www.freecodecamp.org/news/the-beginners-collection-of-powerful-tips-and-tricks-for-react-f2e3833c6f12/
