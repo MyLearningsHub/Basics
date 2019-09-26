@@ -11,3 +11,4 @@ Data Science PPT is https://pdfs.semanticscholar.org/407c/05a87c5eb47af7e7cddf41
 
 Interesting Card Styles;https://uicookies.com/css-card-design/
 
+https://medium.com/quick-code/deploying-production-build-of-react-app-to-heroku-2548d8bf6936
