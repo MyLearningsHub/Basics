@@ -1,0 +1,48 @@
+ Creating a backup for Elasticsearch using Kibana Developer tools APIs
+ 
+ Just copy paste the below and it has all the instructions
+ 
+#This API registers a repository ie create a folder at mentioned path in es.yml
+#my_backup is the name of the repository
+#my_backup_location is the actual folder name containing indices
+PUT /_snapshot/my_backup
+{
+  "type": "fs",
+  "settings": {
+    "location": "my_backup_location"
+  }
+}
+
+
+#This is to get info about registered repository
+GET /_snapshot/my_backup
+
+
+GET /_snapshot
+
+#this command takes snapshot of all indices by default
+PUT /_snapshot/my_backup/snapshot_1?wait_for_completion=true
+
+#to selectively backup the indices use below
+PUT /_snapshot/my_backup/snapshot_2?wait_for_completion=true
+{
+  "indices": "mt599_fulldataset",
+  "ignore_unavailable": true,
+  "include_global_state": false
+}
+
+GET /_snapshot/my_backup/snapshot_1
+
+#restore the data from backup of that index
+POST /_snapshot/my_backup/snapshot_1/_restore
+{
+  "indices": "mt599_fulldataset",
+  "ignore_unavailable": true,
+  "include_global_state": true
+}
+
+#delete an index
+delete /mt599_fulldataset
+
+#delete a dnapshot
+DELETE /_snapshot/my_backup/snapshot_1
