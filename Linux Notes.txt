@@ -1,0 +1,47 @@
+$vi .bash_profile		//to get the proxy details of the test server we have
+
+//To remove directory and its content
+$rm -r mydir
+
+//df in lunux command which gives info about the disk space available in all partitions.
+//df means "disk free" or the partitions in the linux memory with unique read/write accesses to users
+/ -h here means human readable format
+$df -h
+
+//Thi gives memory consumed by current directory(Can be known by $pwd command)
+$du -sh
+
+//This command gives info about memory consumed by all the subdirectories of the current directory
+//then we can judge whether we need it of not.
+$du -sh *
+
+//When we dont have privilege to delete something or change something. 
+//Here chmod is to change permissions of the file system
+//7 is the max number which means full read write access
+//775 are for user|Group|others
+$chmod -R 775 /file_directory_path
+
+//chown change owner ship of a particular user.
+//-R means recursively in folder and further inside it. 
+//tomadm:tomadm means user_name:group_name
+$chown -R tomadm:tomadm /file_directory_path
+
+//I used these commands to delete unnecessary files whose permission i did not have
+$chmod -R 775 /home/tomadm/JatinSandbox
+$chown -R tomadm:tomadm /home/tomadm/JatinSandbox
+$rm -r /home/tomadm/JatinSandbox/kibana
+
+//More details in puga's call
+//
+$cat /etc/passwd
+
+tar -xvzf community_images.tar.gz
+To explain a little further, tar collected all the files into one package, community_images.tar. The gzip program applied compression, hence the gz extension. So the command does a couple things:
+
+f: this must be the last flag of the command, and the tar file must be immediately after. It tells tar the name and path of the compressed file.
+z: tells tar to decompress the archive using gzip
+x: tar can collect files or extract them. x does the latter.
+v: makes tar talk a lot. Verbose output shows you all the files being extracted.
+
+
+ 
