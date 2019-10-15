@@ -1,0 +1,50 @@
+[
+  ["", "HH:mm:ss.SSS"],
+  ["PT1S", "HH:mm:ss"],
+  ["PT1M", "HH:mm"],
+  ["PT1H", "YYYY-MM-DD HH:mm"],
+  ["P1DT", "MMM-YY"],						//change this for changing dates in the visualization
+  ["P1YT", "YYYY"]
+]
+
+Query syntax for lucene:-
+1). *anything = wildcards
+2)STATUS.keyword = for particular value in a column(adding .keyword is important)
+3)beats.name:"value"
+
+
+
+Kibana Plugin:-
+To install a plugin first download from git
+Change the current directory path to kibana/bin
+run /bin/kibana-plugin install file:///"path of the folder"			#here the file:// part is important
+
+(Also sometimes it just does not work simply like that)
+To manually install a Kibana plugin follow the below answer
+
+I had a similar issue with a different plugin. Kibana 5 plugins are very sensitive to the directory structure they are placed in. Here is how I solved it.
+
+Unzip plugin
+Check package.json to make sure Kibana version matches what you have
+Contents of zip must be placed in the following directory structure kibana/name_of_plugin/contents_of_zip
+(note) The parent directory that kibana goes in doesn't matter. The name of the plugin is also located in package.json. Make sure the directory under kibana is named exactly this.
+Once you have your directory structure sorted out, zip it back up. Top level should include kibana folder
+Run the install command (kibana-plugin install file:///kibana/metric_vis_colors.zip)
+
+//go to  logstash/bin folder and run the below statement
+./logstash-plugin list
+
+//Kibana Dev Tools information
+You simply need to PUT the additional documents. In your example above you did
+
+PUT /demo/userdetails/1 { "user" : "kimchy", "message" : "trying out Elastic Search" }
+Now you would do this:
+
+PUT /demo/userdetails/2 {"user": "swarna","message":"hi"}
+In you command there demo is the index, userdetails is the type, and the number is the document id. If you omit the document id ES will make one up for you.
+		
+//load bulk data in an index using a json file 
+//here shakespeare in the index, doc is the type of the index, in bulk we want to updatee. and then address of the json to be injected
+curl -H 'Content-Type: application/x-ndjson' -XPOST 'http://10.23.213.99:9201/shakespeare/doc/_bulk?pretty' --data-binary @/home/tomadm/JatinSandbox/KibanaDbTry/shakespeare_6.0.json
+
+elasticsearch index should always contains all lowercase letter
