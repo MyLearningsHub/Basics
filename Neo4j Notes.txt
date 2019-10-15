@@ -1,0 +1,76 @@
+NEO4j
+
+:play northwind-graph
+
+//match with and without where
+//without where clause
+match (actor:Person{name : "Tom Hanks"}) -[:ACTED_IN]->(tomMovies:Movie) return actor, tomMovies
+
+//with where clause
+match (actor:Person) -[:ACTED_IN]->(movies:Movie) where actor.name="Tom Hanks" return actor,movies
+
+
+
+
+//Ho people are related ot Cloud Atlas
+MATCH (people:Person)-[relatedTo]-({title: "Cloud Atlas"}) RETURN people.name, Type(relatedTo), relatedTo
+
+//all nodes/connections upto 4 hopps away from kevin
+MATCH (bacon:Person {name:"Kevin Bacon"})-[*1..4]-(hollywood)
+RETURN DISTINCT hollywood
+
+//To find the shortest path of 1 node to the other node
+MATCH p=shortestPath(  (bacon:Person {name:"Kevin Bacon"})-[*]-(meg:Person {name:"Meg Ryan"})) RETURN p
+
+//Here we want to find a good coActor2 for Tom Hanks. So we are finding 
+//coActors1 that have worked with Tom Hanks at first and then coActors2(Searching a good coActor from these) of those coActors1(Those who have worked with Tom)
+
+MATCH (tom:Person {name:"Tom Hanks"})-[:ACTED_IN]->(m)<-[:ACTED_IN]-(coActors),
+      (coActors)-[:ACTED_IN]->(m2)<-[:ACTED_IN]-(cocoActors)
+WHERE NOT (tom)-[:ACTED_IN]->()<-[:ACTED_IN]-(cocoActors) AND tom <> cocoActors
+RETURN cocoActors.name AS Recommended, count(*) AS Strength ORDER BY Strength DESC
+NOTE:- Here strength is the number of movies Tom hanks has done with coActors1.(Means done in first relationship)
+
+
+//To delete a node we use
+Match (n) Detach delete n
+NOTE:-We cannot delete nodes which have relationships
+
+// In the below code block we are loading a csv file
+//Each row acts as a node in itself (with each cell value as a property of the node)
+//Here we have loaded a csv file and are changing the types in the SET expression of the code
+//The row.discontinued <> "0" prints "True" for 1 and "False" for 0
+========================================================
+LOAD CSV WITH HEADERS FROM "file:///products.csv" AS row
+CREATE (n:Product)
+SET n = row,
+  n.unitPrice = toFloat(row.unitPrice),
+  n.unitsInStock = toInteger(row.unitsInStock), n.unitsOnOrder = toInteger(row.unitsOnOrder),
+  n.reorderLevel = toInteger(row.reorderLevel), n.discontinued = (row.discontinued <> "0")
+========================================================
+
+//Order by works with desc and asc(default)
+//limit always come after order by clause
+
+//Here the a company may provide various category products. So we are collecting(using Collect) the categories that belong to  a single company. eg, "verka" [lassi, curd, milk]
+MATCH (s:Supplier)-->(:Product)-->(c:Category)
+RETURN s.companyName as Company, collect(distinct c.categoryName) as Categories
+
+Similarly,
+//The following informs abouts a category proviede by all the suppliers related to it
+MATCH (s:Supplier)-->(:Product)-->(c:Category)
+RETURN c.categoryName, collect(s.companyName)
+
+//rather than loading the order-details csv itself. we are only importing those rows that are matching in the where clause
+LOAD CSV WITH HEADERS FROM "file:///order-details.csv" AS row
+MATCH (p:Product), (o:Order)
+WHERE p.productID = row.productID AND o.orderID = row.orderID
+CREATE (o)-[details:ORDERS]->(p)
+SET details = row,
+  details.quantity = toInteger(row.quantity)
+
+
+//Index helps in doing a quick lookup
+//So creating an index is wise after importing the data from a CSV
+
+
