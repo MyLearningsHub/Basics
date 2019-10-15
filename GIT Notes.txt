@@ -1,0 +1,119 @@
+
+My Observations:
+
+//To Download all the changes, cd to the project and just tun the below mentioned command
+$git pull --all
+
+//To clone the repository to the specific location
+$git clone (link of the bitucket repository)
+
+
+Skip to sidebar navigation
+Skip to content
+Linked Applications
+Bitbucket
+Projects
+Repositories
+Search for code or repositories
+Search for code or repositories...
+Help
+Alerts1
+Logged in as Jatin Grover (1566909)
+SSRND
+Clone
+
+
+Source
+You have an empty repository
+To get started you will need to run these commands in your terminal.
+
+New to Git? Learn the basic Git commands
+Configure Git for the first time
+git config --global user.name "Jatin Grover"
+git config --global user.email "jatin.grover1@sc.com"
+Working with your repository
+I just want to clone this repository
+If you want to simply clone this empty repository then run this command in your terminal.
+
+git clone http://1566909@10.20.165.31:7990/scm/ssrnd/pdr.git
+My code is ready to be pushed
+If you already have code ready to be pushed to this repository then run this in your terminal.
+
+cd existing-project
+git init
+git add --all
+git commit -m "Initial Commit"
+git remote add origin http://1566909@10.20.165.31:7990/scm/ssrnd/pdr.git
+git push -u origin master
+My code is already tracked by Git
+If your code is already tracked by Git then set this repository as your "origin" to push to.
+
+cd existing-project
+git remote set-url origin http://1566909@10.20.165.31:7990/scm/ssrnd/pdr.git
+git push -u origin master
+All done with the commands?
+Refresh
+Git repository management powered by a free Atlassian Bitbucket evaluation license
+Atlassian Bitbucket v4.14.3DocumentationContact SupportRequest a featureAboutContact Atlassian
+Atlassian
+
+
+To check list of branches available in remote repository
+$git branches -r
+
+To create a new branch use:
+$git checkout -b <branchname>
+The  above creates a branch starting from wherever we are at the moment.
+Sometimes even after that some of the newly created branch is not available. 
+Reference- https://stackoverflow.com/questions/12319968/remote-branch-not-showing-up-in-git-branch-r
+Then
+Remove the origin branch 
+$git remote rm origin
+and re add it using the urls
+$git remote add origin <url>
+Then update everything in local machine
+$git remote update
+
+What does GIT STATUS do?
+git status checks whether what are the changes we have made in our local repository since our last commit/push pull request from remote.
+
+If you have made some changes in a branch. And not commited to remote. Then if you want to switch to another branch.
+The command git branch <branchname> will not work. And ask us to either commit or stash the changed somewhere.
+But if we are insistent on this. We can use
+$git checkout -f <branchname>
+
+The above takes us to new branch while ignoring changes in current branch
+
+Now sometimes we are about to push our code into remote branch. But sometimes another user might have added some data. 
+To check if our local branch is different than origin/remote branch. We can do:
+$git diff origin/<branchname>
+
+Make sure current active branch in local machine is same as the one we are comparing with remote branch.
+
+In case we do not want to commit. But want to switch to another branch to check something out. And to still save our data(without committin)
+Below
+-------------------------------------------------------------------------------------------
+You do have a develop. See if Git will let you switch without doing anything:
+
+$ git checkout develop
+This will either succeed, or complain. If it succeeds, great! Just commit. If not (error: Your local changes to the following files would be overwritten ...), you still have lots of options.
+
+The easiest is probably git stash (as all the other answer-ers that beat me to clicking post said). Run git stash save or git stash push,1 or just plain git stash which is short for save / push:
+
+$ git stash
+This commits your code (yes, it really does make some commits) using a weird non-branch-y method. The commits it makes are not "on" any branch but are now safely stored in the repository, so you can now switch branches, then "apply" the stash:
+
+$ git checkout develop
+Switched to branch 'develop'
+$ git stash apply
+If all goes well, and you like the results, you should then git stash drop the stash. This deletes the reference to the weird non-branch-y commits. (They're still in the repository, and can sometimes be retrieved in an emergency, but for most purposes, you should consider them gone at that point.)
+--------------------------------------------------------------------------------------------
+
+To MERGE a branch into its paretn branch(into master or into develop from feature branch).
+
+$git checkout master		//checks out into local master branch where test is to be merged
+$git pull origin master		// pulls everything  from remote master branch in case other people might have changed something
+$git merge test					// merge the feature/test branch into our local master or parent branch
+$git push origin master	//push the latest local master into remote master branch
+
+---------------------------------------------------------------------------------------------
