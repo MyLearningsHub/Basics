@@ -1,0 +1,55 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri May 24 18:02:48 2019
+
+@author: 1566909
+"""
+
+#==============================================================================
+# arr=[1,2,3,4,5,6,7]
+# n=len(arr)
+# d=2
+# print arr
+# for x in range(d):
+#     temp=arr[0]
+#     for i in range(n):
+#         if(i <n-1):
+#             print i
+#             arr[i]=arr[i+1]
+#     print arr
+#     arr[n-1]=temp
+#     print arr
+# print arr
+#==============================================================================
+
+
+
+#arr=[1,2,3,4]
+#x=[]
+#def reverseArray(arr):
+#    temp = arr[0]
+#    n=len(arr)
+#    for i in range(len(arr)):
+#        if(i<n-1):
+#            arr[i]=arr[i+1]
+#    arr[n-1]=temp
+#    return arr
+
+
+
+
+
+#def arrMultiplySelf(arr):
+#    print myArr
+#    y=0
+#    for i in range(len(arr)):
+#        if(i<len(arr)):
+#            y=y+(i*arr[i])
+#    print("value of y is ", y)
+#    x.append(y)
+#
+#for j in range(len(arr)):
+#    myArr=reverseArray(arr)
+#    arrMultiplySelf(myArr)
+#
+#print max(x)
