@@ -1,0 +1,45 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Jun 27 10:27:41 2019
+
+@author: 1566909
+"""
+
+#Trees
+class Node:
+    def __init__(self, value, left=None, right= None):
+        self.value=value
+        self.left=left
+        self.right=right
+    
+
+def inorder(root):
+    if(root == None):
+        return
+    inorder(root.left)
+    print(root.value)
+    inorder(root.right)
+    
+leaf1=Node(4)
+leaf2 = Node(7)
+
+leaf3=Node(11)
+leaf4=Node(14)
+
+leaf5=Node(37)
+
+leaf6=Node(17)
+
+node1=Node(5,leaf1,leaf2)
+node2=Node(12,leaf3,leaf4)
+
+node3=Node(39,leaf5, None)
+
+node4=Node(1,None, node1)
+
+node5=Node(10,node4,node2)
+node6=Node(32,leaf6,node3)
+
+rootnode=Node(15,node5,node6)
+
+inorder(rootnode)
